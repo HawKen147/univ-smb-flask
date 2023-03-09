@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css"/>
-    <link rel="icon" href="https://www.aht.li/3715850/SM_icon.ico"/>
-    <script src="event.js"></script>
-    <title>le meilleur site web du monde</title>
-</head>
+{% include 'header.html' %}
 <body>
     <div>
         <div class="wave"></div>
@@ -21,13 +11,7 @@
             </div>
         </div>
     </header>
-    <div class="nav-bar">
-        <nav>
-            <a href="index.html">Accueil</a>
-            <a href="Alias.html">Alias des serveurs</a>
-            <a href="nat.html"> Les règles du nat</a>
-        </nav>
-    </div>
+    {% include 'nav.html' %}
 <div class="page">
     <h1>Vous pouvez ajouter un type de NAT</h1>
     <form action="#">
