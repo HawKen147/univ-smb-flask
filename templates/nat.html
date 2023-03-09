@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"/>
+    <link rel="icon" href="https://www.aht.li/3715850/SM_icon.ico"/>
+    <script src="event.js"></script>
+    <title>le meilleur site web du monde</title>
+</head>
+<body>
+    <div>
+       <div class="wave"></div>
+       <div class="wave"></div>
+       <div class="wave"></div>
+       
+       <header> 
+        <div class="container">
+            <div class="tunnel-header">
+                <a href="index.html"><img src="https://www.aht.li/3765662/banniere-bleue-de-telecommunication-mondiale-avec-le-reseau-121125501.jpg" alt="image_techno_web_futuristique"></a>
+            </div>
+        </div>
+    </header>
+
+        <div class="nav-bar">
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="Alias.html">Alias des serveurs</a>
+                <a href="nat.html"> Les règles du nat</a>
+            </nav>
+        </div>
+<div class="page">
+ 
+    <h1>Les differents type de NAT</h1>
+    <p>Pour ajouter une regle de NAT, cliquer <a href="ajouter_nat.html">ici</a></p>
+    <table>
+        <thead>
+            <tr>
+                <td>Les types de NAT</td>
+                <td>Principe</td>
+            </tr>
+            <tr>
+                <td>NAT Statique </td>
+                <td><p>Pour un accès permanent à une ressource sur un réseau privé depuis Internet. Utilisé pour un serveur web s'il est contraint d'être placé sur un réseau privé. Annule le bénéfice des IP privées car ne diminue pas le besoin en IP publiques (une IP privée correspond une IP publique).</p></td>
+
+            </tr>
+            <tr>
+                <td>NAT dynamique avec surcharge = NAT overload = PAT</td>
+                <td><p>C'est celui utilisé par les Box Internet grand public.N IP privées correspond une seule IP publique </p></td>
+
+            </tr>
+        </thead>
+    </table>
+    <br>
+    <h5>voir exemple ci dessous pour chaque type de nat</h5>
+    <br>
+    <h3>NAT Statique</h3>
+    <table>
+        <thead>
+            <tr>
+                <td>src IP</td>
+                <td>src port</td>
+                <td>dest IP (publique)</td>
+                <td>dest port</td>
+            </tr>
+            <tr>
+                <td>10.0.0.1</td>
+                <td>80</td>
+                <td>142.143.251.25</td>
+                <td>8080</td>
+            </tr>
+            <tr>
+                <td>10.0.0.2</td>
+                <td>80</td>
+                <td>142.143.251.26</td>
+                <td>8080</td>
+            </tr>
+        </thead>
+    </table>
+    <br>
+    <h3>NAT dynamique avec surcharge</h3>
+    <table>
+        <thead>
+            <tr>
+                <td>src IP</td>
+                <td>src port</td>
+                <td>dest IP (publique)</td>
+                <td>dest port</td>
+            </tr>
+            <tr>
+                <td>10.0.0.1</td>
+                <td>80</td>
+                <td>142.143.251.25</td>
+                <td>8080</td>
+            </tr>
+            <tr>
+                <td>10.0.0.2</td>
+                <td>80</td>
+                <td>142.143.251.25</td>
+                <td>8081</td>
+            </tr>
+        </thead>
+    </table>
+</div>
+    <footer>
+        <p class="text-footer">made by Pierry BENOIT</p>
+    </footer>
+</div>
+</body>
+</html>
