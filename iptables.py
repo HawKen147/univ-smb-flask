@@ -1,15 +1,22 @@
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template, request, session
 import json
 
 app = Flask(__name__)
+app.secret_key = 'any'
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/")
 def index():
-    return render_template("index.html")
+    if check_user_registered():
+        return render_template("index.html")
+    else :
+        return render_template('autentification.html')
+    
+
 
 @app.route("/start")
 def index_html():
     return render_template("index.html")
+
 
 @app.route("/alias")
 def Alias():
@@ -26,12 +33,16 @@ def rules_filter():
 def rules_nat_add():
     return render_template("ajouter_nat.html")
 
-@app.route("/autentification.html", methods=['GET', 'POST'])
-def autentification(namePy):
-    if request.methods == 'POST' :
-        return login()
-    else : 
-        return index()
+@app.route("/autentification", methods=['POST'])
+def autentification():
+    result = request.form
+    login = result['login']
+    password = result['password']
+    if check_autentification(login, password):
+        return render_template("index.html", prenom=login, nom=password)
+    else:
+        return render_template("index.html", prenom=login, nom=password)
+
 
 def nb_row_in_json(file_name):
     with open(file_name,'r') as file:   
@@ -40,14 +51,15 @@ def nb_row_in_json(file_name):
     return len(data)
 
 
-def login():
-    return render_template('autentification.html')
+def check_autentification(login,password):
+    session['login'] = login
+    session['password'] = password
+    return True
 
-def check_autentification():
-    result = request.form
-    login = result['login']
-    password = result['password']
-    return render_template("index.html")
+def check_user_registered():
+    return False
 
 def return_table_td_tr ():
     return render_template("alias_table.html")
+
+
