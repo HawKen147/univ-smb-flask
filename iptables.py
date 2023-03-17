@@ -21,9 +21,7 @@ def index_html():
 
 @app.route("/alias")
 def Alias():
-    nb_row = nb_row_in_json('static/alias.json')
-    """for i in len(nb_row):
-        return_table_td_tr()"""
+    #nb_row = nb_row_in_json('static/alias.json')
     return render_template("Alias.html")
 
 @app.route("/rules_filter")
@@ -40,15 +38,19 @@ def autentification():
     login = result['login']
     password = result['password']
     if check_autentification(login, password):
-        return render_template("index.html", prenom=login, nom=password)
+        return render_template("index.html")
     else:
-        return render_template("index.html", prenom=login, nom=password)
+        return render_template("index.html")
+
+@app.route("/disconnect")
+def disconnect():
+    session.pop('login', None)
+    return index()
 
 
 def nb_row_in_json(file_name):
     with open(file_name,'r') as file:   
         data = json.load(file) 
-    print(len(data))
     return len(data)
 
 
@@ -60,11 +62,10 @@ def check_autentification(login,password):
         if password == password_file:
             session['login'] = login
             return True
-    #else:
-        #on ecrit retourne une erreur
-    return True
+    else:
+        return False
 
-#check if the user is in the folder*
+#check if the user is in the folder
 #return his log + pw
 def is_in_the_id_folder(login):
     with open('identifiant.txt') as temp_f:
@@ -76,7 +77,10 @@ def is_in_the_id_folder(login):
 
 #check if the session exist
 def check_user_registered():
-    return False
+    if 'login' in session:
+        return True
+    else:
+        return False
 
 #get the password in the file
 def get_password_file(line):
@@ -91,10 +95,4 @@ def add_user_files(login,password):
     password = base64.b64encode(password.encode())
     fichier.write(str(login) + ':' + str(password))
     fichier.close()
-
-
-
-def return_table_td_tr ():
-    return render_template("alias_table.html")
-
 
