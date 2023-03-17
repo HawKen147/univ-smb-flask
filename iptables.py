@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request, session
 import json
+import base64
 
 app = Flask(__name__)
 app.secret_key = 'any'
@@ -54,6 +55,9 @@ def nb_row_in_json(file_name):
 def check_autentification(login,password):
     session['login'] = login
     session['password'] = password
+    password = base64.b64encode(password.encode())
+    fichier = open('identifiant.txt','a')
+    fichier.write(str(login) + ':' + str(password))
     return True
 
 def check_user_registered():
