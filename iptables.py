@@ -53,15 +53,46 @@ def nb_row_in_json(file_name):
 
 
 def check_autentification(login,password):
-    session['login'] = login
-    session['password'] = password
     password = base64.b64encode(password.encode())
-    fichier = open('identifiant.txt','a')
-    fichier.write(str(login) + ':' + str(password))
+    res = is_in_the_id_folder(login)  #get the line where the login is, false if it is not in the file
+    if res :
+        password_file = get_password_file(res)
+        if password == password_file:
+            session['login'] = login
+            return True
+    #else:
+        #on ecrit retourne une erreur
     return True
 
+#check if the user is in the folder*
+#return his log + pw
+def is_in_the_id_folder(login):
+    with open('identifiant.txt') as temp_f:
+        datafile = temp_f.readlines()
+    for line in datafile:
+        if login in line:
+            return line
+    return False  
+
+#check if the session exist
 def check_user_registered():
     return False
+
+#get the password in the file
+def get_password_file(line):
+    nb = line.find(':')
+    line = line[nb + 1:-1] #we don't want the ':' char
+    return line
+
+
+#add user if doesnt exist
+def add_user_files(login,password):
+    fichier = open('identifiant.txt', 'a')
+    password = base64.b64encode(password.encode())
+    fichier.write(str(login) + ':' + str(password))
+    fichier.close()
+
+
 
 def return_table_td_tr ():
     return render_template("alias_table.html")
