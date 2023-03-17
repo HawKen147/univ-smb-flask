@@ -3,7 +3,9 @@ import json
 import base64
 
 app = Flask(__name__)
+app.debug = True
 app.secret_key = 'any'
+
 
 @app.route("/")
 def index():
@@ -13,24 +15,39 @@ def index():
         return render_template('autentification.html')
     
 
-
 @app.route("/start")
 def index_html():
-    return render_template("index.html")
+    if check_user_registered():
+        return render_template("index.html")
+    else :
+        return render_template('autentification.html')
 
 
 @app.route("/alias")
 def Alias():
     #nb_row = nb_row_in_json('static/alias.json')
-    return render_template("Alias.html")
+    if check_user_registered():
+        return render_template("Alias.html")
+    else :
+        return render_template('autentification.html')
+
 
 @app.route("/rules_filter")
 def rules_filter():
     return render_template("nat.html")
+    if check_user_registered():
+        return render_template("nat.html")
+    else :
+        return render_template('autentification.html')
+
 
 @app.route("/rules_nat_add")
 def rules_nat_add():
-    return render_template("ajouter_nat.html")
+    if check_user_registered():
+        return render_template("ajouter_nat.html")
+    else :
+        return render_template('autentification.html')
+
 
 @app.route("/autentification", methods=['POST'])
 def autentification():
@@ -40,18 +57,13 @@ def autentification():
     if check_autentification(login, password):
         return render_template("index.html")
     else:
-        return render_template("index.html")
+        return render_template("autentification.html")
+
 
 @app.route("/disconnect")
 def disconnect():
-    session.pop('login', None)
+    session.clear()
     return index()
-
-
-def nb_row_in_json(file_name):
-    with open(file_name,'r') as file:   
-        data = json.load(file) 
-    return len(data)
 
 
 def check_autentification(login,password):
@@ -60,10 +72,13 @@ def check_autentification(login,password):
     if res :
         password_file = get_password_file(res)
         if password == password_file:
-            session['login'] = login
+            session['login'].append(str(login))
             return True
+        else:
+            return False
     else:
         return False
+
 
 #check if the user is in the folder
 #return his log + pw
@@ -75,12 +90,14 @@ def is_in_the_id_folder(login):
             return line
     return False  
 
+
 #check if the session exist
 def check_user_registered():
     if 'login' in session:
-        return True
+        return 'la variable existe'
     else:
-        return False
+        return 'la variable existe pas'
+
 
 #get the password in the file
 def get_password_file(line):
@@ -95,4 +112,10 @@ def add_user_files(login,password):
     password = base64.b64encode(password.encode())
     fichier.write(str(login) + ':' + str(password))
     fichier.close()
+
+
+def nb_row_in_json(file_name):
+    with open(file_name,'r') as file:   
+        data = json.load(file) 
+    return len(data)
 
