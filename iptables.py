@@ -3,7 +3,7 @@ import json
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
     return render_template("index.html")
 
@@ -26,12 +26,28 @@ def rules_filter():
 def rules_nat_add():
     return render_template("ajouter_nat.html")
 
+@app.route("/autentification.html", methods=['GET', 'POST'])
+def autentification(namePy):
+    if request.methods == 'POST' :
+        return login()
+    else : 
+        return index()
+
 def nb_row_in_json(file_name):
     with open(file_name,'r') as file:   
         data = json.load(file) 
     print(len(data))
     return len(data)
 
+
+def login():
+    return render_template('autentification.html')
+
+def check_autentification():
+    result = request.form
+    login = result['login']
+    password = result['password']
+    return render_template("index.html")
 
 def return_table_td_tr ():
     return render_template("alias_table.html")
