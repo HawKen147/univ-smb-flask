@@ -15,7 +15,7 @@
     </header>
 
     {% include 'nav.html' %}
-<div class="page" onload="read_json();">
+<div class="page" onload="send_request();">
     <h1>Les noms / adresses ip / ports des differents serveurs</h1>
     <table class="table table-bordered table-hover">
         <thead>
@@ -44,10 +44,12 @@
                 <td>Serv3</td>
             </tr>
         </thead>
+        <tbody id="table-body">
+        </tbody>
     </table>
 </div>
 {% include 'footer.html' %}
 </div>
-<script src="/static/function.js"></script>
+<script src="/static/alias.js"></script>
 </body>
 </html>

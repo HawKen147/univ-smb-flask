@@ -25,7 +25,6 @@ def index_html():
 
 @app.route("/alias")
 def Alias():
-    #nb_row = nb_row_in_json('static/alias.json')
     if check_user_registered():
         return render_template("Alias.html")
     else :
@@ -57,6 +56,12 @@ def autentification():
         return render_template("index.html")
     else:
         return render_template("autentification.html")
+
+@app.route('/alias_json')
+def data():
+    with open('static/alias.json', 'r') as f:
+        data = json.load(f)
+    return data
 
 
 @app.route("/disconnect")
@@ -106,11 +111,3 @@ def add_user_files(login,password):
     password = base64.b64encode(password.encode())
     fichier.write(str(login) + ':' + str(password))
     fichier.close()
-
-
-def nb_row_in_json(file_name):
-    with open(file_name,'r') as file:   
-        data = json.load(file) 
-    return len(data)
-
-
