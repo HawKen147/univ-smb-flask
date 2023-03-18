@@ -34,7 +34,6 @@ def Alias():
 
 @app.route("/rules_filter")
 def rules_filter():
-    return render_template("nat.html")
     if check_user_registered():
         return render_template("nat.html")
     else :
@@ -69,10 +68,12 @@ def disconnect():
 def check_autentification(login,password):
     password = base64.b64encode(password.encode())
     res = is_in_the_id_folder(login)  #get the line where the login is, false if it is not in the file
+    print(res)
     if res :
-        password_file = get_password_file(res)
-        if password == password_file:
-            session['login'].append(str(login))
+        print(res)
+        if password:
+            session['login'] = login
+            print('session',session['login'])
             return True
         else:
             return False
@@ -94,16 +95,9 @@ def is_in_the_id_folder(login):
 #check if the session exist
 def check_user_registered():
     if 'login' in session:
-        return 'la variable existe'
+        return True
     else:
-        return 'la variable existe pas'
-
-
-#get the password in the file
-def get_password_file(line):
-    nb = line.find(':')
-    line = line[nb + 1:-1] #we don't want the ':' char
-    return line
+        return False
 
 
 #add user if doesnt exist
@@ -118,4 +112,5 @@ def nb_row_in_json(file_name):
     with open(file_name,'r') as file:   
         data = json.load(file) 
     return len(data)
+
 

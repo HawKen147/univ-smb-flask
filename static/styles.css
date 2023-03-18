@@ -95,6 +95,11 @@ html{
     border-radius: 20px 20px 20px 20px;
 }
 
+.page .autentification{
+    margin-top: 60px;
+    padding-top: 7%;
+}
+
 .page p{
     padding-left: 30px;
     padding-top: 10px;
@@ -215,6 +220,7 @@ table {
     text-align: center;
     min-height: 200px;
     min-width: 300px;
+    max-width: 80%;
     font-size: large;
     border-radius: 10px;
     border: solid rgb(72, 20, 95);
