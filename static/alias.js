@@ -1,6 +1,17 @@
-window.onload = (event) => {
+window.onload = function () {
+    timeout = 10000;   //5 min 
+    make_request(timeout);
+}
 
-    send_request();
+function make_request(timeout){
+    send_request ();
+    wait_for_next_exec_ (timeout)
+}
+
+function wait_for_next_exec_outdated(timeout){
+    setTimeout(() => {
+        refresh_page_outdated(timeout);  
+    }, timeout);
 }
 
 function send_request (){
