@@ -22,6 +22,9 @@ function send_request (){
                     var td_port = document.createElement('td');
                     td_port.innerText = data[i].port;
                     tr.appendChild(td_port);
+                    var td_alias = document.createElement('td');
+                    td_alias.innerText = data[i].alias;
+                    tr.appendChild(td_alias);
                     tbody.appendChild(tr);
                 }
             }   
