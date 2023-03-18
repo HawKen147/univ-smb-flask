@@ -1,6 +1,18 @@
-window.onload = (event) => {
+window.onload = function () {
+    timeout = 10000;
+    refresh_alias(timeout)
+}
 
-    send_request();
+function refresh_alias(timeout){
+    console.log('execution du scipt');
+    send_request ();
+    wait_for_next_exec (timeout);
+}
+
+function wait_for_next_exec(timeout) {
+    setTimeout(() => {
+        refresh_alias(timeout);
+    }, timeout);
 }
 
 function send_request (){
